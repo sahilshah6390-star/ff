@@ -1,0 +1,5 @@
+Flask==2.2.5
+Authlib==1.2.0
+python-dotenv==1.0.0
+requests==2.31.0
+pyTelegramBotAPI==4.12.0
