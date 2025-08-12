@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Redeem Diamonds</title>
+<style>
+  body{font-family:Arial,Helvetica,sans-serif;background:#f6f7fb;padding:18px}
+  .card{max-width:480px;margin:auto;background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+  .big{font-size:20px;font-weight:800}
+  .muted{color:#7b8794}
+  .buy{display:inline-block;background:#ff6b35;color:#fff;padding:10px 16px;border-radius:10px;border:none;font-weight:800}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>Redeem your Diamonds</h2>
+    <p class="muted">This link was created for user: <strong>{{ link.owner_id }}</strong></p>
+    <p class="big">💎 {{ link.diamonds }} Diamonds</p>
+    <p style="font-size:18px;color:#ff6b35; font-weight:700">Total: ₹{{ link.amount }}</p>
+
+    <div style="margin-top:12px;">
+      <form id="buyForm">
+        <input type="hidden" name="token" value="{{ link.token }}">
+        <label>
+          Payment method:
+          <select name="method">
+            <option value="upi">UPI / PhonePe</option>
+            <option value="paytm">Paytm</option>
+            <option value="googlepay">Google Pay</option>
+          </select>
+        </label>
+        <div style="margin-top:12px;">
+          <button type="button" class="buy" id="buyBtn">Buy Now</button>
+          <a href="/" style="margin-left:8px">Cancel</a>
+        </div>
+      </form>
+    </div>
+    <p class="muted" style="margin-top:12px">After you click Buy, the admin will receive the order and will confirm payment manually. Use the QR on next page to pay.</p>
+  </div>
+
+<script>
+document.getElementById('buyBtn').addEventListener('click', async ()=>{
+  const form = document.getElementById('buyForm');
+  const data = new FormData(form);
+  const obj = {};
+  data.forEach((v,k)=> obj[k]=v);
+  try {
+    const res = await fetch('/purchase', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(obj) });
+    const js = await res.json();
+    if(js.status === 'ok'){
+      // go to confirmation (which shows QR)
+      window.location.href = '/confirmation';
+    } else {
+      alert('Error: ' + (js.message || 'Unknown'));
+    }
+  } catch (e) {
+    alert('Server error (make sure app is running).');
+  }
+});
+</script>
+
+</body>
+</html>

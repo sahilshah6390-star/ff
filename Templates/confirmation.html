@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Confirm Payment</title>
+<style>
+  body{font-family:Arial;background:#f6f7fb;padding:18px;text-align:center}
+  .card{max-width:480px;margin:auto;background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+  .qr{width:260px;height:260px;object-fit:contain;margin:12px auto}
+  .note{color:#7b8794}
+  .btn{display:inline-block;background:#ff6b35;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>Scan & Pay</h2>
+    <p class="note">Scan the QR below in PhonePe / Google Pay / Paytm to make the payment.</p>
+    <img src="/static/qr.png" alt="QR" class="qr">
+    <div>
+      <a class="btn" href="/">Back to home</a>
+    </div>
+    <p class="note" style="margin-top:8px">After you pay, wait for admin confirmation. Admin must confirm the order for it to be marked successful.</p>
+  </div>
+</body>
+</html>
